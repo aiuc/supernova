@@ -4,6 +4,9 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const app = express();
+const userRoute = require("./routes/users.js");
+const authRoute = require("./routes/auth.js");
+
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
@@ -25,20 +28,25 @@ mongoose.connect('mongodb://127.0.0.1:27017/supernova', {
     console.error('Failed to connect to MongoDB', err);
 });
 
+app.use("/api/users", userRoute);
+app.use("/api/auth", authRoute);
+
+
 // --------
 // DATABASE
 // --------
 // User register
-const User = mongoose.model('User', {
-    name: String,
-    username: String,
-    email: String,
-    password: String
-});
 
-const Post = mongoose.model('Post', {
-    input: String
-});
+// const User = mongoose.model('User', {
+//     name: String,
+//     username: String,
+//     email: String,
+//     password: String
+// });
+
+// const Post = mongoose.model('Post', {
+//     input: String
+// });
 
 // const DeletePost = mongoose.model('Post', {
 //     input
@@ -46,42 +54,42 @@ const Post = mongoose.model('Post', {
 
 
 
-app.post('/api/register', (req, res) => {
-    if (!req.body) {
-        return res.status(400).json({ error: 'Request body is missing' });
-    }
-    // Get user data from request body
-    const {name, username, email, password } = req.body;
+// app.post('/api/register', (req, res) => {
+//     if (!req.body) {
+//         return res.status(400).json({ error: 'Request body is missing' });
+//     }
+//     // Get user data from request body
+//     const {name, username, email, password } = req.body;
   
-    // Create a new User object
-    const newUser = new User({name, username, email, password });
+//     // Create a new User object
+//     const newUser = new User({name, username, email, password });
   
-    // Save the user to the database
-    newUser.save()
-      .then(() => {
-        res.status(201).json({ message: 'User registered successfully' });
-      })
-      .catch((err) => {
-        console.error('Failed to register user', err);
-        res.status(500).json({ message: 'Failed to register user' });
-      });
-  });
+//     // Save the user to the database
+//     newUser.save()
+//       .then(() => {
+//         res.status(201).json({ message: 'User registered successfully' });
+//       })
+//       .catch((err) => {
+//         console.error('Failed to register user', err);
+//         res.status(500).json({ message: 'Failed to register user' });
+//       });
+//   });
 
-  app.post('/api/post', (req, res) => {
-    if (!req.body) {
-        return res.status(400).json({ error: 'Request body is missing' });
-    }
+//   app.post('/api/post', (req, res) => {
+//     if (!req.body) {
+//         return res.status(400).json({ error: 'Request body is missing' });
+//     }
 
-    const {input } = req.body;
-    const newPost = new Post({input });
+//     const {input } = req.body;
+//     const newPost = new Post({input });
 
-    newPost.save()
-      .then(() => {
-        res.status(201).json({ message: 'Post made successfully' });
-      })
-      .catch((err) => {
-        console.error('Failed to make Post', err);
-        res.status(500).json({ message: 'Failed to make Post' });
-      });
-  });
+//     newPost.save()
+//       .then(() => {
+//         res.status(201).json({ message: 'Post made successfully' });
+//       })
+//       .catch((err) => {
+//         console.error('Failed to make Post', err);
+//         res.status(500).json({ message: 'Failed to make Post' });
+//       });
+//   });
 
