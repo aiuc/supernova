@@ -3,7 +3,7 @@ Nom Etudiant 2: Ossama ELLIETHY - 28712429
 
 # SuperNova
 
-Vous trouverez les requetes api postman dans le fichier "supernova.postman_collection.json" afin de tester nos fonction serveur.
+Vous trouverez les requêtes api postman dans le fichier "supernova.postman_collection.json" afin de tester nos fonction serveur.
 
 # FrontEnd :
 La partie client est en cours de développement dans le dossier "src".
@@ -42,5 +42,5 @@ Les fonctionnalités suivantes sont prévues pour le backend :
 
 - Système de recherche d'utilisateurs : Les utilisateurs pourront rechercher d'autres utilisateurs en utilisant des critères tels que le nom d'utilisateur, le nom réel, ou d'autres informations de profil. Cela sera mis en œuvre en utilisant une route GET /api/users/search qui renverra les utilisateurs correspondant aux critères de recherche.
 - Affichage du nom et photo de profile de l'utilisateur à la page prinicipale. Cela sera mis en œuvre en utilisant une route GET /api/users/ qui renverra le nom et photo de profile.
-- Mettre une photo de profile de l'utilisateur à travers la page de gestion de profile.
+- Mettre une photo de profile de l'utilisateur à travers la page de gestion de profile. 
 - Système de pagination pour les publications : Actuellement, toutes les publications sont renvoyées en une seule requête, ce qui peut devenir inefficace lorsque le nombre de publications augmente. Un système de pagination sera mis en place pour limiter le nombre de publications renvoyées à la fois, améliorant ainsi les performances et l'expérience utilisateur.

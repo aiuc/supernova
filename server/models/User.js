@@ -29,11 +29,11 @@ const UserSchema = new mongoose.Schema({
       type:String,
       default:""
   },
-    followers:{
+    followers:{ //contient une array list avec les id des abonnés de l'user
         type:Array,
         default:[]
     },
-    following:{
+    following:{ //contient une array list avec les id des abonnements de l'user
         type:Array,
         default:[]
     },

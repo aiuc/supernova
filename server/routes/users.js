@@ -55,7 +55,9 @@ router.get("/:id", async(req, res)=>{
 router.put("/:id/follow", async (req, res) => {
     if (req.body.userId !== req.params.id) { //un utilisateur ne peut pas se follow lui même
       try {
+
         const user = await User.findById(req.params.id);
+
         const currentUser = await User.findById(req.body.userId);
         if (!user.followers.includes(req.body.userId)) {
           await user.updateOne({ $push: { followers: req.body.userId } });
@@ -64,8 +66,8 @@ router.put("/:id/follow", async (req, res) => {
         } else {
           res.status(403).json("Vous suivez déjà cet utilisateur.");
         }
-      } catch (err) {
-        res.status(500).json(err);
+      } catch (error) {
+        res.status(500).json(error);
       }
     } else {
       res.status(403).json("Opération impossible sur soit-même.");
@@ -76,22 +78,29 @@ router.put("/:id/follow", async (req, res) => {
 
 router.put("/:id/unfollow", async (req, res) => {
     if (req.body.userId !== req.params.id) {
+
     try {
         const user = await User.findById(req.params.id);
+
         const currentUser = await User.findById(req.body.userId);
+
         if (user.followers.includes(req.body.userId)) {
+
         await user.updateOne({ $pull: { followers: req.body.userId } });
         await currentUser.updateOne({ $pull: { following: req.params.id } });
+
         res.status(200).json("Utilisateur non-suivi avec succès!");
         } else {
         res.status(403).json("Vous ne suivez pas cet utilisateur.");
         }
-    } catch (err) {
-        res.status(500).json(err);
+    }catch(error){
+        res.status(500).json(error);
     }
-    } else {
+
+    } else{
     res.status(403).json("Opération impossible sur soit-même.");
     }
 });
+
 
 module.exports = router

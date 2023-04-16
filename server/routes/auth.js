@@ -2,25 +2,27 @@ const router = require("express").Router();
 const User = require("../models/User.js");
 const bcrypt = require("bcrypt"); //pour cacher les mdp dans notre BDD
 
-//REGISTER
+//REGISTER : SIGNUP
 
-router.post("/register", async (req, res)=>{
+router.post("/register", async(req, res)=>{
+
     try{
         //generer un nouveau mdp "crypté"
-        const salt = await bcrypt.genSalt(10);
+        const salt = await bcrypt.genSalt(10); 
         const mdpCrypt = await bcrypt.hash(req.body.password, salt);
-        //creer un nv user
-        const newUser = new User({
+        //creer un Nouveau user
+        const nvUtilisateur = new User({
             name: req.body.name,
             username: req.body.username,
             email: req.body.email,
             password: mdpCrypt,
         });
+
         // sauv l'user et rendre le status ok
-        const user = await newUser.save();
-        res.status(200).json(user);
-    }catch(err){
-        res.status(500).json(err);
+        const utilisateur = await nvUtilisateur.save();
+        res.status(200).json(utilisateur);
+    }catch(error){
+        res.status(500).json(error);
     }
 
 });
@@ -29,18 +31,18 @@ router.post("/register", async (req, res)=>{
 
 router.post("/login", async(req, res)=>{
     try{
-        const user = await User.findOne({email:req.body.email});
-        !user && res.status(404).send("user not found")
+        const utilisateur = await User.findOne({email:req.body.email});
+    
+        !utilisateur && res.status(404).send("l'utilisateur n'a pas été trouvé !")
 
-        const mdpValid = await bcrypt.compare(req.body.password, user.password);
-        !mdpValid && res.status(404).send("wrong password");
+        const mdpValid = await bcrypt.compare(req.body.password, utilisateur.password);
+        !mdpValid && res.status(404).send("le mot de passe est incorrect !");
 
-        res.status(200).json(user);
-    }catch(err){
-        res.status(500).json(err);
+        res.status(200).json(utilisateur);
+    }catch(error){
+        res.status(500).json(error);
     }
     
-
 });
 
 
