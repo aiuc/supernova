@@ -40,6 +40,10 @@ const Post = mongoose.model('Post', {
     input: String
 });
 
+// const DeletePost = mongoose.model('Post', {
+//     input
+// });
+
 
 
 app.post('/api/register', (req, res) => {
