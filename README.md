@@ -3,12 +3,15 @@ Nom Etudiant 2: Ossama ELLIETHY - 28712429
 
 # SuperNova
 
-Vous trouverez les requetes api postman dans le fichier "supernova.postman_collection.json" afin de tester nos fonction serveur.
+Vous trouverez les requêtes api postman dans le fichier "supernova.postman_collection.json" afin de tester nos fonction serveur.
 
 # FrontEnd :
-La partie client est en cours de développement dans le dossier "src".
+
+La partie client est en cours de développement dans le dossier "src". Elle n'est pas encore fini.
 
 # BackEnd :
+
+Se situe dans le dossier "Server". Les modèles mongoose sont dans le dossier "models" et les routes, dans le dossier "Route".
 
 ## INSTALATION
 Faire un npm init/install à la racine du fichier supernova (où se trouve le package.json).
